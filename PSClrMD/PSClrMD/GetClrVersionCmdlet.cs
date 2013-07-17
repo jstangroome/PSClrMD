@@ -4,6 +4,7 @@ using Microsoft.Diagnostics.Runtime;
 namespace PSClrMD
 {
     [Cmdlet(VerbsCommon.Get, Context.DefaultCommandPrefix + "ClrVersion")]
+    [OutputType(typeof(VersionInfo))]
     public class GetClrVersionCmdlet : PSCmdlet
     {
         [Parameter]
@@ -23,7 +24,10 @@ namespace PSClrMD
         {
             var target = GetTarget();
 
-            WriteObject(target.ClrVersions, enumerateCollection: true);
+            foreach (var info in target.ClrVersions)
+            {
+                WriteObject(info.Version);
+            }
         }
     }
 }

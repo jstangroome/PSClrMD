@@ -13,25 +13,18 @@ namespace PSClrMD.Tests
             Assert.AreEqual(4, IntPtr.Size, "Should be in a 32-bit test runner process.");
 
             using (var demoScope = new DemoProcessScope())
-            using (var shell = PowerShellWithClrMDModule())
+            using (var testScope = PowerShellWithClrMDModuleConnectedToProcess(demoScope.Process))
             {
-                shell.AddCommand<ConnectTargetCmdlet>(
-                    s => s.AddParameter(c => c.ProcessId, demoScope.Process.Id)
-                    );
-                shell.Invoke();
-                shell.Commands.Clear();
-
+                var shell = testScope.Shell;
+                
                 shell.AddCommand<GetClrVersionCmdlet>();
                 var output = shell.Invoke();
                 shell.Commands.Clear();
                 
-                shell.AddCommand<DisconnectTargetCmdlet>();
-                shell.Invoke();
-                
                 Assert.AreEqual(1, output.Count);
 
-                var clrInfo = output[0].BaseObject as ClrInfo;
-                Assert.AreEqual(4, clrInfo.Version.Major);
+                var version = (VersionInfo)output[0].BaseObject;
+                Assert.AreEqual(4, version.Major);
 
                 Assert.AreEqual(0, shell.Streams.Error.Count);
             }

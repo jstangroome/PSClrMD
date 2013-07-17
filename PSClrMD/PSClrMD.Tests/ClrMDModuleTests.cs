@@ -1,4 +1,5 @@
-﻿using System.Management.Automation;
+﻿using System.Diagnostics;
+using System.Management.Automation;
 
 namespace PSClrMD.Tests
 {
@@ -13,5 +14,24 @@ namespace PSClrMD.Tests
             shell.Commands.Clear();
             return shell;
         }
+
+        protected TestScope PowerShellWithClrMDModuleConnectedToProcess(Process process)
+        {
+            var shell = PowerShellWithClrMDModule();
+            shell.AddCommand<ConnectTargetCmdlet>(
+                s => s.AddParameter(c => c.ProcessId, process.Id)
+                );
+            shell.Invoke();
+            shell.Commands.Clear();
+
+            var testScope = new TestScope(shell, s =>
+                                                 {
+                                                     s.Commands.Clear();
+                                                     s.AddCommand<DisconnectTargetCmdlet>();
+                                                     s.Invoke();
+                                                 });
+            return testScope;
+        }
+
     }
 }
