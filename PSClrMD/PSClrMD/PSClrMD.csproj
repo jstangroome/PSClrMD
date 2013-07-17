@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClrMDTargetCmdlet.cs" />
     <Compile Include="ConnectTargetCmdlet.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="ConnectRuntimeCmdlet.cs" />
     <Compile Include="DisconnectTargetCmdlet.cs" />
     <Compile Include="GetClrVersionCmdlet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,5 @@
-﻿using Microsoft.Diagnostics.Runtime;
+﻿using System;
+using Microsoft.Diagnostics.Runtime;
 
 namespace PSClrMD
 {
@@ -7,5 +8,11 @@ namespace PSClrMD
         public const string DefaultCommandPrefix = "ClrMD";
 
         public static DataTarget DefaultDataTarget { get; set; }
+        public static ClrRuntime DefaultClrRuntime { get; set; }
+
+        public static Version ConvertToVersion(VersionInfo versionInfo)
+        {
+            return new Version(versionInfo.Major, versionInfo.Minor, versionInfo.Revision, versionInfo.Patch);
+        }
     }
 }

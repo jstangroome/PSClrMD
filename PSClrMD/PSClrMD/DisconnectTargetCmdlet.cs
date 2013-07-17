@@ -27,6 +27,7 @@ namespace PSClrMD
             {
                 var target = Context.DefaultDataTarget;
                 Context.DefaultDataTarget = null;
+                Context.DefaultClrRuntime = null;
                 if (target == null)
                 {
                     WriteError(new ErrorRecord(new PSClrMDException("Not connected."), "NotConnected", ErrorCategory.InvalidOperation, null));
