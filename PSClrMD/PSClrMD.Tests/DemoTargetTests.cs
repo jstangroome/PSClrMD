@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace PSClrMD.Tests
 {
     [TestClass]
-    public class DemoTargetTests : ClrMDModuleTests
+    public class DemoTargetTests : ClrMDModuleScenario
     {
         [TestMethod]
         public void CLRMDModule_should_get_CLR_version()
@@ -50,6 +50,30 @@ namespace PSClrMD.Tests
                 var clrThreads = output.Select(o => o.BaseObject).OfType<ClrThread>();
 
                 Assert.AreNotEqual(0, clrThreads.Count(), "Should have threads.");
+
+                Assert.AreEqual(0, shell.Streams.Error.Count);
+            }
+        }
+
+        [TestMethod]
+        public void CLRMDModule_should_get_heap_objects()
+        {
+            using (var demoScope = new DemoProcessScope())
+            using (var testScope = PowerShellWithClrMDModuleConnectedToProcess(demoScope.Process))
+            {
+                var shell = testScope.Shell;
+
+                shell.AddCommand<ConnectRuntimeCmdlet>();
+                shell.Invoke();
+                shell.Commands.Clear();
+
+                shell.AddCommand<GetHeapObjectCmdlet>();
+                var output = shell.Invoke();
+                shell.Commands.Clear();
+
+                var heapObjects = output.Select(o => o.BaseObject).OfType<ClrHeapObject>();
+
+                Assert.AreNotEqual(0, heapObjects.Count(), "Should have heap objects.");
 
                 Assert.AreEqual(0, shell.Streams.Error.Count);
             }

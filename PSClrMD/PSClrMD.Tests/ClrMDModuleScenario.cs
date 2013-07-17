@@ -3,7 +3,7 @@ using System.Management.Automation;
 
 namespace PSClrMD.Tests
 {
-    public abstract class ClrMDModuleTests
+    public abstract class ClrMDModuleScenario
     {
         protected PowerShell PowerShellWithClrMDModule()
         {

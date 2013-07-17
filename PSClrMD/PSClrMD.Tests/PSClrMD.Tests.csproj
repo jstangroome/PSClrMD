@@ -60,7 +60,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ClrMDModuleTests.cs" />
+    <Compile Include="ClrMDModuleScenario.cs" />
     <Compile Include="DemoProcessScope.cs" />
     <Compile Include="PowerShellExtensions.cs" />
     <Compile Include="DemoTargetTests.cs" />
