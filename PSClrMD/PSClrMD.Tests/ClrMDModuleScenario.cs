@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Management.Automation;
 
 namespace PSClrMD.Tests
@@ -17,21 +18,30 @@ namespace PSClrMD.Tests
 
         protected TestScope PowerShellWithClrMDModuleConnectedToProcess(Process process)
         {
+            return PowerShellWithClrMDModuleConnected(s => s.AddParameter(c => c.ProcessId, process.Id));
+        }
+
+        protected TestScope PowerShellWithClrMDModuleConnectedToCrashDump(string crashDumpPath)
+        {
+            return PowerShellWithClrMDModuleConnected(s => s.AddParameter(c => c.CrashDumpPath, crashDumpPath));
+        }
+
+        private TestScope PowerShellWithClrMDModuleConnected(Action<IPSCmdlet<ConnectTargetCmdlet>> commandAction)
+        {
             var shell = PowerShellWithClrMDModule();
-            shell.AddCommand<ConnectTargetCmdlet>(
-                s => s.AddParameter(c => c.ProcessId, process.Id)
-                );
+            shell.AddCommand<ConnectTargetCmdlet>(commandAction);
             shell.Invoke();
             shell.Commands.Clear();
 
             var testScope = new TestScope(shell, s =>
-                                                 {
-                                                     s.Commands.Clear();
-                                                     s.AddCommand<DisconnectTargetCmdlet>();
-                                                     s.Invoke();
-                                                 });
+            {
+                s.Commands.Clear();
+                s.AddCommand<DisconnectTargetCmdlet>();
+                s.Invoke();
+            });
             return testScope;
         }
+
 
     }
 }

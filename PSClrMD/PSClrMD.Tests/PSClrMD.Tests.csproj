@@ -61,7 +61,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ClrMDModuleScenario.cs" />
+    <Compile Include="CrashDumpTests.cs" />
     <Compile Include="DemoProcessScope.cs" />
+    <Compile Include="MiniDump.cs" />
     <Compile Include="PowerShellExtensions.cs" />
     <Compile Include="DemoTargetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
