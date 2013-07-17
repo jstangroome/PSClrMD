@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Diagnostics.Runtime;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PSClrMD.Tests

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Management.Automation;
-using Microsoft.Diagnostics.Runtime;
 
 namespace PSClrMD
 {
