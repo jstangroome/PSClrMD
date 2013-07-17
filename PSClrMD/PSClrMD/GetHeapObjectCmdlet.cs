@@ -10,6 +10,9 @@ namespace PSClrMD
         [Parameter]
         public SwitchParameter Force { get; set; }
 
+        [Parameter]
+        public SwitchParameter IncludeFree { get; set; }
+
         protected override void ProcessRecord()
         {
             var runtime = GetRuntime();
@@ -27,6 +30,8 @@ namespace PSClrMD
             foreach (var objectAddress in heap.EnumerateObjects())
             {
                 var objectType = heap.GetObjectType(objectAddress);
+                if (objectType.IsFree && !IncludeFree.IsPresent) continue;
+                
                 var objectSize = objectType.GetSize(objectAddress);
                 var objectGeneration = heap.GetGeneration(objectAddress);
 

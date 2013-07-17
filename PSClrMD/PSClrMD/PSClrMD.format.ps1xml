@@ -67,5 +67,58 @@
         </TableRowEntries>
       </TableControl>
     </View>
+
+    <View>
+      <Name>PSClrMD.ClrHeapObject</Name>
+      <ViewSelectedBy>
+        <TypeName>PSClrMD.ClrHeapObject</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Address</Label>
+            <Width>19</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Size</Label>
+            <Width>6</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Gen.</Label>
+            <Width>4</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Type Name</Label>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $bytes = [System.BitConverter]::GetBytes($_.Address)
+                  [System.Array]::Reverse($bytes)
+                  '0x' + [System.BitConverter]::ToString($bytes).ToLower() -replace '-',''
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Size</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Generation</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>TypeName</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    
   </ViewDefinitions>
 </Configuration>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Types>
+  <Type>
+    <Name>PSClrMD.ClrHeapObject</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>TypeName</Name>
+        <GetScriptBlock>
+          $this.Type.Name
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>HasSimpleValue</Name>
+        <GetScriptBlock>
+          $this.Type.HasSimpleValue
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>IsString</Name>
+        <GetScriptBlock>
+          $this.Type.IsString
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>IsException</Name>
+        <GetScriptBlock>
+          $this.Type.IsException
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>IsArray</Name>
+        <GetScriptBlock>
+          $this.Type.IsArray
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>

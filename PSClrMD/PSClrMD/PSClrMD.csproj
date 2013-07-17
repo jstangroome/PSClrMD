@@ -60,6 +60,9 @@
     <Compile Include="PSClrMDException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="PSClrMD.types.ps1xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="PSClrMD.format.ps1xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
