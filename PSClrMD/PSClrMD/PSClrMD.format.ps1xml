@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <Name>PSClrMD.ClrThread</Name>
+      <ViewSelectedBy>
+        <TypeName>Microsoft.Diagnostics.Runtime.ClrThread</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+            <Width>7</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Managed Id</Label>
+            <Width>7</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Alive</Label>
+            <Width>6</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Background</Label>
+            <Width>10</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Address</Label>
+            <Width>19</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Location</Label>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>OSThreadId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ManagedThreadId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>IsAlive</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>IsBackground</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $bytes = [System.BitConverter]::GetBytes($_.Address)
+                  [System.Array]::Reverse($bytes)
+                  '0x' + [System.BitConverter]::ToString($bytes).ToLower() -replace '-',''</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.StackTrace[0]</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>
