@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using Microsoft.Diagnostics.Runtime;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PSClrMD.Tests
@@ -32,8 +34,6 @@ namespace PSClrMD.Tests
         [TestMethod]
         public void CLRMDModule_should_get_threads()
         {
-            Assert.AreEqual(4, IntPtr.Size, "Should be in a 32-bit test runner process.");
-
             using (var demoScope = new DemoProcessScope())
             using (var testScope = PowerShellWithClrMDModuleConnectedToProcess(demoScope.Process))
             {
@@ -43,7 +43,13 @@ namespace PSClrMD.Tests
                 shell.Invoke();
                 shell.Commands.Clear();
 
-                Assert.Inconclusive("Get Threads cmdlet not written yet.");
+                shell.AddCommand<GetThreadCmdlet>();
+                var output = shell.Invoke();
+                shell.Commands.Clear();
+
+                var clrThreads = output.Select(o => o.BaseObject).OfType<ClrThread>();
+
+                Assert.AreNotEqual(0, clrThreads.Count(), "Should have threads.");
 
                 Assert.AreEqual(0, shell.Streams.Error.Count);
             }

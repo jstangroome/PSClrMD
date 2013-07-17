@@ -50,6 +50,8 @@
     <Compile Include="ConnectTargetCmdlet.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="ConnectRuntimeCmdlet.cs" />
+    <Compile Include="ClrMDRuntimeCmdlet.cs" />
+    <Compile Include="GetThreadCmdlet.cs" />
     <Compile Include="DisconnectTargetCmdlet.cs" />
     <Compile Include="GetClrVersionCmdlet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
